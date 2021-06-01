@@ -77,7 +77,7 @@ func handleDnsRequest(w dns.ResponseWriter, r *dns.Msg) {
 func main() {
 	// attach request handler func
 	flag.StringVar(&host, "listen", "127.0.0.1", "Host to listen on")
-	flag.StringVar(&port, "port", "5353", "Port to listen on")
+	flag.StringVar(&port, "port", "53", "Port to listen on")
 	flag.StringVar(&domain, "domain", "example.com", "Domain to respond to")
 
 	flag.Parse()
