@@ -13,9 +13,10 @@ import (
 // 	"test.service.": "192.168.0.2",
 // }
 
-var domain string = "example.com"
-var host string = "1.1.1.1"
-var domParts = strings.Split(domain, ".")
+var domain string
+var port string
+var host string
+var domParts []string
 
 func parseHostname(hostname string) map[string]string {
 	out := make(map[string]string)
@@ -75,14 +76,12 @@ func handleDnsRequest(w dns.ResponseWriter, r *dns.Msg) {
 
 func main() {
 	// attach request handler func
-	var host, port string
-
 	flag.StringVar(&host, "listen", "127.0.0.1", "Host to listen on")
 	flag.StringVar(&port, "port", "5353", "Port to listen on")
 	flag.StringVar(&domain, "domain", "example.com", "Domain to respond to")
 
 	flag.Parse()
-
+	domParts = strings.Split(domain, ".")
 	dns.HandleFunc(domain, handleDnsRequest)
 
 	// start server
